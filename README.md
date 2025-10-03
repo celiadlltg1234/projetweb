@@ -1,4 +1,5 @@
 # React + TypeScript + Vite
+groupe 3, Dellat Galivet Celia.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
