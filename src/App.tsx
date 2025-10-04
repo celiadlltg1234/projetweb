@@ -1,34 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import  {tasksCollection} from "./data";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const tasks = tasksCollection;
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React 🤖🤖</h1>
-      <h3>Hello everyone!!</h3>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <h1>Todo List</h1>
+    <p>Nombre de tâches : {tasksCollection.length} </p>
+    <ul>
+      {tasks.map((task) => (
+        <li key={task.id}>
+          <p>Contenu : {task.content}</p>
+          <p>Statut : {task.statut}</p>
+          <p>Date de création : {task.createdAt.toLocaleDateString()}</p>
+          <p>Date d'achèvement : {task.completedAt ? task.completedAt.toLocaleDateString() : "Non complétée"}</p>
+        </li>
+      ))}
+    </ul>
+    <footer>
+      <p>© 2024 Mon Application Todo List</p>
+    </footer>
     </>
   )
 }
