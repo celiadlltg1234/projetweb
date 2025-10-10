@@ -3,21 +3,41 @@ import './App.css'
 //import des dépendances React et uuid
 import {v4 as uuidv4} from "uuid";
 import React, { useState, useEffect, type JSX } from "react";
-
+import { BrowserRouter, Routes , Route } from 'react-router-dom';
 //import des types et données
 import type { Task } from "./Task";
 import  {tasksCollection} from "./data";
 
 //import des composants enfants
-import { TaskForm } from './composant/TaskForm';
-import { TaskPreview } from './composant/TaskPreview';
+import { TaskMaster } from './composant/TaskMaster';
+import { TaskDetails } from './composant/TaskDetails';
 
 
 function App() {
 
-  const [tasks, setTasks] = useState<Task[]>(tasksCollection);
+  //initialisation de l'état des tâches avec les données par défaut
+  const storedTasks = localStorage.getItem("tasks");
+  
+  //si des tâches sont stockées dans le local storage, on les utilise, sinon on utilise les données par défaut
+  const [tasks, setTasks] = useState<Task[]>( 
+  storedTasks ? JSON.parse(storedTasks).map((task: any) => (
+    {...task, 
+    createdAt: new Date(task.createdAt), 
+    completedAt: task.completedAt ? new Date(task.completedAt) : null,
+  }
+  )) : tasksCollection.map((task) => (
+    {...task, 
+    createdAt: new Date(task.createdAt), 
+    completedAt: task.completedAt ? new Date(task.completedAt) : null,
+  }
+  ))
+  );
+  //sauvegarde des tâches dans le local storage à chaque modification de la liste des tâches
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
-//fonction pour ajouter une nouvelle tâche
+  //fonction pour ajouter une nouvelle tâche
   function addNewTask(content: string){
     const newTask: Task = {
       id: uuidv4(),
@@ -39,21 +59,42 @@ function App() {
       return task;
     }));
   }
-//rendu du composant
+
+  //fonction pour supprimer une tâche
+  function deleteTask(id: string){
+    const confirm = window.confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?");
+    if(!confirm) return;
+    setTasks(tasks.filter((task) => task.id !== id));
+  }
+
+  //rendu du composant
   return (
     <>
-    <h1>Todo List</h1>
-    <p>Nombre de tâches : {tasks.length} </p>
-    {/*<button id="newtask" onClick={handleClick}>
-        Nouvelle tâche
-    </button>*/}
-    <TaskForm onAddTask={addNewTask} />
-    {/*Boucle pour afficher les tâches*/}
-    {tasks.map((task) => (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={
+          <TaskMaster 
+            tasks={tasks}
+            onAddTask={addNewTask} 
+            onValidateTask={validateTask}
+            onDeleteTask={deleteTask} />
+        } />
+        <Route 
+          path="/task/:id" 
+          element={<TaskDetails tasks={tasks}/>} 
+        />
+      </Routes>
+      </BrowserRouter>
+      
+    
+    
+    
+    {/*tasks.map((task) => (
       <TaskPreview
        key={task.id} 
        task={task} 
-       onValidateTask={validateTask} />
+       onValidateTask={validateTask}
+       onDeleteTask={deleteTask} />
     ))}
     {/*  ou bien
     <TaskPreview task={task} onValidateTask={validateTask} />
@@ -78,7 +119,7 @@ function App() {
     </ul> */ }
     
     
-    </>
+   </> 
     
   );
 }

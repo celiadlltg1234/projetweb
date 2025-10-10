@@ -1,28 +1,41 @@
 import type { Task } from "../Task";
 import {TaskPreview}  from "./TaskPreview";
+import { TaskForm } from "./TaskForm";
 import React, { useState, useEffect, type JSX } from "react";
 
 
 interface TaskMasterProps {
     tasks: Task[];
+    onAddTask: (content: string) => void;
     onValidateTask: (id: string) => void;
+    onDeleteTask: (id: string) => void;
 }
 
-export function TaskMaster({ tasks, onValidateTask }: TaskMasterProps) {
+export  function TaskMaster({ tasks,onAddTask, onValidateTask, onDeleteTask}: TaskMasterProps) {
 
     return (
+        <>
+        <h1>Todo List</h1>
+        <p>Nombre de tâches : {tasks.length} </p>
+        <TaskForm onAddTask={onAddTask} />
         <ul>
             
-        {tasks.map((task) => (
-            <TaskPreview
-                key={task.id}
-                task={task}
-                onValidateTask={onValidateTask}
-            />
-            
-        ))};
-        </ul>
+            {tasks.map((task) => (
+                
+                    
+                    <TaskPreview
+                        task={task}
+                        onValidateTask={onValidateTask}
+                        onDeleteTask={onDeleteTask}/>
+                 
+             
+                    
+            ))
+            };
+      </ul>
+        </>
     );
+    
 }
 
 
