@@ -40,3 +40,45 @@
 .read-the-docs {
   color: #888;
 }
+ul{
+  list-style-type: disc;
+  
+}
+li{
+  text-align: left;
+  margin: 10px 0px;
+  padding: 10px;
+}
+/* pour un rendu plus sombre*/
+body {
+  background-color: rgb(29, 28, 28);
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';     
+}
+button,#newtask{
+  background-color: #0000;
+  color: white;
+  border: 1px solid black;
+  font-size: 1em;
+  border-radius: 5px ;     
+}   
+#newtask{
+  border: 1px solid #646cff
+}
+#newtask:hover{
+  background-color: #3333;
+  cursor: pointer;
+}
+#newtask:active{
+  background-color: #5555;
+}
+#newtask:focus{
+  outline:  #646cff;
+  outline-offset: 2px;
+}
+small{
+  color: #aaa;
+  font-size: 0.8em;
+  
+}
