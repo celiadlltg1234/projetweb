@@ -23,15 +23,15 @@ export  function TaskMaster({ tasks,onAddTask, onValidateTask, onDeleteTask}: Ta
             {tasks.map((task) => (
                 
                     
-                    <TaskPreview
-                        task={task}
-                        onValidateTask={onValidateTask}
-                        onDeleteTask={onDeleteTask}/>
+              <TaskPreview
+                task={task}
+                onValidateTask={onValidateTask}
+                onDeleteTask={onDeleteTask}/>
                  
              
                     
             ))
-            };
+            }
       </ul>
         </>
     );

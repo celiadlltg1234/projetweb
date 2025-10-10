@@ -5,6 +5,5 @@ export interface Task {
   content: string;
   createdAt: Date;
   completedAt?: Date | null;//le ? rend la propriété optionnelle
-  statut: TaskStatut;
-  
+  statut: TaskStatut;  
 }

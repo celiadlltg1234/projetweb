@@ -27,6 +27,7 @@
   }
 }
 
+
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
@@ -104,6 +105,13 @@ a{
 a:visited,a:hover,a:active{
   text-decoration: underline;
   color: inherit;
+}
+input[type="text"]{
+  padding: 5px;
+  font-size: 1em;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 300px;
 }
 
 
